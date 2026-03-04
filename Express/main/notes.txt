@@ -1,0 +1,133 @@
+Routing in ExpressJS: app. METHOD (PATH, HANDLER);
+
+    A route in ExpressJS consists of:
+    METHOD → HTTP method (GET, POST, PUT, DELETE) = CRUD
+    PATH URL route (e.g., /, /users)
+    HANDLER Function that runs when the route is accessed
+ 
+
+
+Express allows dynamic routing using route parameters and query strings.
+Dynamic Routes
+    Dynamic Route -http://localhost:3000/user/John
+    Used to capture dynamic values from the URL.
+    Defined using parameter_name.
+    Query Strings
+    Query Strings http://localhost:3000/search?keyword=ExpressJS -
+    Used to pass optional data in the URL after ?.
+    Extracted using req.query.
+
+// import express from 'express';
+// import { searchCont,usernameCont } from "./controller.js";
+// import { userLogin,signLogin } from "./controller.js";
+// import router from './route.js'
+
+// const app=express();
+// const PORT=3000;
+
+// app.get('/',(req,res)=>{
+//     res.send('hello Alaric world');
+// })
+
+// app.get('/about',(req,res)=>{
+//     res.send('about routing');
+// })
+// app.get('/about/contact',(req,res)=>{
+//     res.send('contact routing');
+// })
+
+// Dynamic route
+// app.get('/:username', usernameCont)
+
+// query route
+// app.get('/search',searchCont)
+
+// app.get('/userLogin',userLogin)
+// app.get('/signLogin',signLogin)
+
+// app.use('/user',router)
+
+
+
+
+
+//CRUD: GET,POST,PUT DELETE
+
+app.get('/',(req,res)=>{
+//     res.send('hello Alaric world');
+// })
+
+// app.post('/users',(req,res)=>{
+//     const {name,email}=req.body
+//     res.json({
+//         message:`user ${name} with email ${email} Created succesfully`
+//     })
+// })
+
+// app.put('/users/:id',(req,res)=>{
+//     const userId= req.params.id
+//     const {name,email}= req.body
+//     res.json({
+//         message:`user ${userId} updated to ${name},${email}`
+//     })
+// })
+
+app.delete('/users/:id',(req,res)=>{
+    const id=req.params.id
+    res.json({
+        message:`user id ${id} deleted`
+    })
+})
+
+Middleware in ExpressJS: app.use(express.json())
+I
+Middleware functions in ExpressJS are functions that execute before the final request handler. They can:
+
+1.Modify the request (req) and response (res) objects
+2.End the request-response cycle
+3.Call the next middleware function in the stack
+
+Middleware Workflow
+Client Request → Middleware → Route Handler → Response to Client
+Middleware is essential for logging, authentication, request parsing, error handling, etc.
+
+Types of Middleware in ExpressJS
+Description
+Type
+Example
+Application-Level Middleware
+Applies to all routes in an app
+app.use (loggerMiddleware)
+Router-Level Middleware
+Applies to specific route groups
+router.use(authMiddleware)
+Built-in Middleware
+Comes with Express (e.g., express.json())
+app.use (express.json())
+Third-Party Middleware
+External libraries for additional functionality
+app.use(cors())
+Error-Handling Middleware
+Handles errors in the request lifecycle
+app.use (errorHandler)
+
+
+Templating Engine in ExpressJS:
+
+A templating engine generates dynamic HTML by embedding JavaScript-like logic within an HTML file.
+Key Benefits:
+I Keeps logic separate from presentation (HTML).
+Uses variables, loops, conditionals, and functions to generate content.
+In ExpressJS, templating engines are used to render views dynamically by integrating them into the application.
+
+//Setting Ejs as view engine
+// app.set('view engine','ejs')
+
+FORM HANDLING:
+const upload= multer()
+app.use(express.urlencoded({extended:true}))
+app.use(upload.array())
+app.post('/form',(req,res)=>{
+    console.log(req.body)
+    res.send('form received')
+})
